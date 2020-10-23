@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/colorPrimaryDark"
     tools:context=".ui.TopGamesFragment">
 
     <ProgressBar
@@ -18,10 +18,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/list_message_layout"
+        android:id="@+id/message_empty_list_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -40,6 +41,7 @@
             android:layout_marginHorizontal="@dimen/margin_small"
             android:layout_marginVertical="@dimen/margin_small"
             android:textSize="20sp"
+            android:textColor="@color/white"
             tools:text="@string/error_message" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

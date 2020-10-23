@@ -53,6 +53,7 @@ class TopGamesFragment : Fragment() {
 
         topGamesViewModel.onError.observe(viewLifecycleOwner, Observer {
             Utils().showToast(requireContext(),"Error!")
+            message_empty_list_layout.visibility = View.VISIBLE
         })
     }
 }
