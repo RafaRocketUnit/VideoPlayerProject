@@ -2,7 +2,6 @@ package com.globant.videoplayerproject.api
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.globant.videoplayerproject.R
 
 /**
  * Session manager to save and fetch data from SharedPreferences
