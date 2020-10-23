@@ -5,16 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.globant.videoplayerproject.R
 import com.globant.videoplayerproject.api.SessionManager
 import com.globant.videoplayerproject.utils.Utils
-import kotlinx.android.synthetic.main.fragment_first.*
+import kotlinx.android.synthetic.main.fragment_top_games.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -36,7 +34,7 @@ class TopGamesFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? =
-         inflater.inflate(R.layout.fragment_first, container, false)
+         inflater.inflate(R.layout.fragment_top_games, container, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +43,13 @@ class TopGamesFragment : Fragment() {
         initializeRecyclerView()
 
         registerObservers()
+        registerListeners()
+    }
 
+    private fun registerListeners() {
+        adapter.onClick = {
+            Utils().showToast(requireContext(), "Game touched!" )
+        }
     }
 
     private fun registerObservers() {
@@ -57,17 +61,19 @@ class TopGamesFragment : Fragment() {
         })
 
         topGamesViewModel.onErrorAccessToken.observe(viewLifecycleOwner, Observer {
-            Utils(requireContext()).showToast("Error AccessToken!")
+            Utils().showToast(requireContext(),"Error AccessToken!")
         })
 
         topGamesViewModel.listGames.observe(viewLifecycleOwner, Observer {
-            Utils(requireContext()).showToast("List top games!")
+            Utils().showToast(requireContext(),"List top games!")
             adapter.addGames(it)
             loading.visibility = View.GONE
         })
 
         topGamesViewModel.onError.observe(viewLifecycleOwner, Observer {
-            Utils(requireContext()).showToast("Error!")
+            Utils().showToast(requireContext(),"Error!")
+            message_empty_list_layout.visibility = View.VISIBLE
+            recyclerView?.visibility = View.GONE
         })
     }
 

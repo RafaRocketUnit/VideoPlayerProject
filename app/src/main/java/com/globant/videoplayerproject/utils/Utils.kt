@@ -3,9 +3,9 @@ package com.globant.videoplayerproject.utils
 import android.content.Context
 import android.widget.Toast
 
-class Utils(val context: Context) {
+class Utils() {
 
-    fun showToast(message: String){
+    fun showToast(context: Context,message: String){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }
