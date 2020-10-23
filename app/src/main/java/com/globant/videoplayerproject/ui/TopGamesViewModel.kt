@@ -50,7 +50,7 @@ class TopGamesViewModel : ViewModel() {
 
     fun getListGames(accessToken: String) {
         viewModelScope.launch {
-            val getPropertiesDeferred = RepositoryApi.retrofitService.getTopGamesAsync(accessToken)
+            val getPropertiesDeferred = RepositoryApi.retrofitService.getTopGamesAsync(accessToken, 100)
             try {
                 val topGame = getPropertiesDeferred.await()
                 _listGames.value = topGame.data

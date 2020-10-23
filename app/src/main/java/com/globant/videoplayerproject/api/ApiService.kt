@@ -41,7 +41,7 @@ private val retrofitToken = Retrofit.Builder()
 interface RepositoryApiService {
     @Headers("Client-Id: xzpd1f4527fu8fct7p7own0pgi35v5")
     @GET("helix/games/top")
-    fun getTopGamesAsync(@Header("Authorization") accessToken: String):
+    fun getTopGamesAsync(@Header("Authorization") accessToken: String, @Query("first") gamesToLoad: Int):
             Deferred<TopGames>
 }
 
