@@ -14,5 +14,3 @@ class CustomApplication : Application() {
         instance = this
     }
 }
-
-

@@ -10,7 +10,6 @@
         android:name="com.globant.videoplayerproject.ui.TopGamesFragment"
         android:label="TopGamesFragment"
         tools:layout="@layout/fragment_top_games">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
