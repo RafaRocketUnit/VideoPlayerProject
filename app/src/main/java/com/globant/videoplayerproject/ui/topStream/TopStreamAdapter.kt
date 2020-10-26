@@ -36,7 +36,9 @@ class TopStreamAdapter: RecyclerView.Adapter<TopStreamAdapter.ViewHolder>() {
         fun bindResponse(stream: DataStream, onClick: (DataStream) -> Unit) = with(itemView){
             view.item_title.text = stream.title
             view.item_time_and_date.text = Utils().formatDate(stream.started_at)
-            view.item_type.text = stream.type
+            if(stream.type == "live") {
+                view.item_type.text = context.resources.getString(R.string.live)
+            }
 
             val imageUrl = Utils().adaptImageUrl(stream.thumbnail_url)
             Glide.with(itemView.context)
