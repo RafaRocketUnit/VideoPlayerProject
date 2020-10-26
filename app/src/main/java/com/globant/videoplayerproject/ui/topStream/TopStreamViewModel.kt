@@ -29,7 +29,6 @@ class TopStreamViewModel : ViewModel() {
             } catch (e: Exception) {
                 _onError.value = true
             }
-
         }
     }
 }
