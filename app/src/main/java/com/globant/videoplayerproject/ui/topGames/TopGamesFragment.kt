@@ -1,4 +1,4 @@
-package com.globant.videoplayerproject.ui
+package com.globant.videoplayerproject.ui.topGames
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.globant.videoplayerproject.MainActivity
 import com.globant.videoplayerproject.R
 import com.globant.videoplayerproject.api.SessionManager
 import com.globant.videoplayerproject.utils.Utils
@@ -25,6 +27,8 @@ class TopGamesFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         topGamesViewModel = ViewModelProvider(this).get(TopGamesViewModel::class.java)
+
+        activity?.title = resources.getString(R.string.app_name)
     }
 
     override fun onCreateView(
@@ -41,17 +45,25 @@ class TopGamesFragment : Fragment() {
         registerListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupToolbar()
+    }
+
+    private fun setupToolbar(){
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        activity?.title = getString(R.string.topGameTitle)
+    }
+
     private fun registerListeners() {
         adapter.onClick = {
-            Utils().showToast(requireContext(), "Game touched!")
+            findNavController().navigate(TopGamesFragmentDirections.navigateToListStreamFragment(it.id))
         }
     }
 
     private fun registerObservers() {
         topGamesViewModel.accessToken.observe(viewLifecycleOwner, Observer {
-            val type = it.token_type.replace("b", "B")
-            val type2 = type.plus("")
-            SessionManager(requireContext()).saveAuthToken("$type2 ${it.access_token}")
+            SessionManager(requireContext()).saveAuthToken("${Utils().adaptTypeToken(it.token_type)} ${it.access_token}")
             topGamesViewModel.getListGames(
                 SessionManager(requireContext()).fetchAuthToken().toString()
             )
@@ -62,7 +74,6 @@ class TopGamesFragment : Fragment() {
         })
 
         topGamesViewModel.listGames.observe(viewLifecycleOwner, Observer {
-            Utils().showToast(requireContext(), "List top games!")
             adapter.addGames(it)
             loading.visibility = View.GONE
         })

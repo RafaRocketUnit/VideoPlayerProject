@@ -1,6 +1,7 @@
 package com.globant.videoplayerproject.api
 
 import com.globant.videoplayerproject.model.AccessToken
+import com.globant.videoplayerproject.model.Stream
 import com.globant.videoplayerproject.model.TopGames
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -43,6 +44,12 @@ interface RepositoryApiService {
     @GET("helix/games/top")
     fun getTopGamesAsync(@Header("Authorization") accessToken: String, @Query("first") gamesToLoad: Int):
             Deferred<TopGames>
+
+    @Headers("Client-Id: xzpd1f4527fu8fct7p7own0pgi35v5")
+    @GET("helix/streams")
+    fun getTopStreamsAsync(@Header("Authorization") accessToken: String, @Query("game_id") gameId: String):
+            Deferred<Stream>
+
 }
 
 interface  RepositoryApiServiceToken {

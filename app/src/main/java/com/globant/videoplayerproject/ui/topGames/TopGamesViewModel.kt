@@ -1,4 +1,4 @@
-package com.globant.videoplayerproject.ui
+package com.globant.videoplayerproject.ui.topGames
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

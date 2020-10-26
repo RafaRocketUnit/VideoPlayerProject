@@ -1,4 +1,4 @@
-package com.globant.videoplayerproject.ui
+package com.globant.videoplayerproject.ui.topGames
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.globant.videoplayerproject.R
 import com.globant.videoplayerproject.model.Data
+import com.globant.videoplayerproject.utils.Utils
 import kotlinx.android.synthetic.main.item_row.view.*
 
 class TopGamesAdapter: RecyclerView.Adapter<TopGamesAdapter.ViewHolder>() {
@@ -31,7 +32,7 @@ class TopGamesAdapter: RecyclerView.Adapter<TopGamesAdapter.ViewHolder>() {
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         fun bindResponse(game: Data, onClick: (Data) -> Unit) = with(itemView){
-            val imageUrl = game.box_art_url.replace("{width}x{height}", "150x170")
+            val imageUrl = Utils().adaptImageUrl(game.box_art_url)
             Glide.with(itemView.context)
                 .load(imageUrl)
                 .centerCrop()
