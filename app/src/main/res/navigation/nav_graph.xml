@@ -12,15 +12,27 @@
         tools:layout="@layout/fragment_top_games">
         <action
             android:id="@+id/navigateToListStreamFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/TopStreamFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/TopStreamFragment"
         android:name="com.globant.videoplayerproject.ui.topStream.TopStreamFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_top_stream">
         <argument
             android:name="gameId"
+            app:argType="string" />
+        <action
+            android:id="@+id/navigateToListVideosFragment"
+            app:destination="@id/listVideosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listVideosFragment"
+        android:name="com.globant.videoplayerproject.ui.videos.ListVideosFragment"
+        android:label="fragment_list_videos"
+        tools:layout="@layout/fragment_list_videos" >
+        <argument
+            android:name="user_id"
             app:argType="string" />
     </fragment>
 </navigation>

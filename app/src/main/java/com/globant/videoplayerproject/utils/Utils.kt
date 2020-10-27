@@ -21,6 +21,10 @@ class Utils {
         return imageUrl.replace("{width}x{height}", "150x170")
     }
 
+    fun adaptImageUrlVideos(imageUrl: String): String{
+        return imageUrl.replace("%{width}x%{height}", "150x170")
+    }
+
     fun adaptTypeToken(token: String): String{
         val type = token.replace("b", "B")
         return type.plus("")
