@@ -35,4 +35,9 @@
             android:name="user_id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/exoPlayerFragment"
+        android:name="com.globant.videoplayerproject.ExoPlayerFragment"
+        android:label="fragment_exo_player"
+        tools:layout="@layout/fragment_exo_player" />
 </navigation>

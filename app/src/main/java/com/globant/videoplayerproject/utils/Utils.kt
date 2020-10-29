@@ -11,22 +11,22 @@ class Utils {
     }
 
     fun formatDate(date: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val outputFormat = SimpleDateFormat("HH:mm • EEE, M/d")
+        val inputFormat = SimpleDateFormat(ACTUAL_DATE_FORMAT)
+        val outputFormat = SimpleDateFormat(REQUIRED_DATE_FORMAT)
         val dateObject = inputFormat.parse(date)
         return outputFormat.format(dateObject)
     }
 
     fun adaptImageUrl(imageUrl: String): String{
-        return imageUrl.replace("{width}x{height}", "150x170")
+        return imageUrl.replace(ACTUAL_WIDTH_HEIGHT_IMAGE, REQUIRED_WIDHT_HEIGHT)
     }
 
     fun adaptImageUrlVideos(imageUrl: String): String{
-        return imageUrl.replace("%{width}x%{height}", "150x170")
+        return imageUrl.replace(ACTUAL_WIDTH_HEIGHT_VIDEOS, REQUIRED_WIDHT_HEIGHT)
     }
 
     fun adaptTypeToken(token: String): String{
-        val type = token.replace("b", "B")
+        val type = token.replace(ACTUAL_AUTHENTICATION_TYPE, CORRECT_AUTHENTICATION_TYPE)
         return type.plus("")
     }
 }

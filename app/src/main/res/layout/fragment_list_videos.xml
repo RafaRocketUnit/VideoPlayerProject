@@ -15,13 +15,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/video_view"
+        <FrameLayout
+            android:id="@+id/video_exo_player"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:fastforward_increment="30000"
-            app:rewind_increment="30000"
-            app:show_timeout="10000" />
+            android:layout_height="@dimen/wrap_constraint" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/stream_recyclerView"
@@ -33,8 +30,8 @@
     </LinearLayout>
     <ProgressBar
         android:id="@+id/loading"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
+        android:layout_width="@dimen/wrap_constraint_progress_bar"
+        android:layout_height="@dimen/wrap_constraint_progress_bar"
         android:progressBackgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

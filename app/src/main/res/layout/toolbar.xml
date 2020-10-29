@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
-    android:elevation="4dp"
+    android:elevation="@dimen/card_config"
     android:theme="@style/toolbarColorText"
     app:navigationIcon="?attr/homeAsUpIndicator" />

@@ -2,12 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/result_item_cardView"
-    android:layout_width="160dp"
-    android:layout_height="180dp"
+    android:layout_width="@dimen/item_image_width"
+    android:layout_height="@dimen/item_image_height"
     android:background="@color/white"
     android:layout_marginVertical="@dimen/margin_xsmall"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="@dimen/card_config"
+    app:cardElevation="@dimen/card_config">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

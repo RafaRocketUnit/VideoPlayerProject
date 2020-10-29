@@ -14,8 +14,8 @@
 
     <ProgressBar
         android:id="@+id/loading"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
+        android:layout_width="@dimen/wrap_constraint_progress_bar"
+        android:layout_height="@dimen/wrap_constraint_progress_bar"
         android:progressBackgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

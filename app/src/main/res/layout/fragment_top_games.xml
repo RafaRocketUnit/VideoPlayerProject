@@ -9,8 +9,8 @@
 
     <ProgressBar
         android:id="@+id/loading"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
+        android:layout_width="@dimen/wrap_constraint_progress_bar"
+        android:layout_height="@dimen/wrap_constraint_progress_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +20,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:scrollbars="vertical"
+        android:layout_marginTop="@dimen/margin_big"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,8 +40,8 @@
 
         <ImageView
             android:id="@+id/list_image"
-            android:layout_width="100sp"
-            android:layout_height="100sp"
+            android:layout_width="@dimen/wrap_constraint_little_image"
+            android:layout_height="@dimen/wrap_constraint_little_image"
             android:src="@drawable/ic_baseline_broken_image_24"
             android:layout_gravity="center_horizontal" />
 
@@ -54,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_small"
             android:layout_marginVertical="@dimen/margin_small"
-            android:textSize="20sp"
+            android:textSize="@dimen/textSize"
             android:textColor="@color/white"
             android:textAlignment="center"
             tools:text="@string/error_message" />
