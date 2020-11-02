@@ -1,24 +1,23 @@
 package com.globant.videoplayerproject.ui.videos
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.globant.videoplayerproject.ExoPlayerFragment
 import com.globant.videoplayerproject.MainActivity
 import com.globant.videoplayerproject.R
 import com.globant.videoplayerproject.api.SessionManager
-import com.globant.videoplayerproject.ui.topStream.TopStreamAdapter
-import com.globant.videoplayerproject.ui.topStream.TopStreamFragmentArgs
-import com.globant.videoplayerproject.ui.topStream.TopStreamViewModel
 import com.globant.videoplayerproject.utils.Utils
 import kotlinx.android.synthetic.main.fragment_top_stream.*
+
 
 class ListVideosFragment: Fragment() {
     private lateinit var adapter: ListVideoAdapter
@@ -44,6 +43,7 @@ class ListVideosFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        inflateExoPlayerFragment()
         initializeRecyclerView()
         registerListeners()
         registerObservers()
@@ -51,6 +51,12 @@ class ListVideosFragment: Fragment() {
         listVideoViewModel.getListVideos(
             SessionManager(requireContext()).fetchAuthToken().toString(), args.userId
         )
+    }
+
+    private fun inflateExoPlayerFragment() {
+        val ft = childFragmentManager.beginTransaction()
+        ft.add(R.id.video_exo_player, ExoPlayerFragment())
+        ft.commit()
     }
 
     override fun onResume() {

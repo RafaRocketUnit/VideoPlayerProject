@@ -18,11 +18,11 @@ class Utils {
     }
 
     fun adaptImageUrl(imageUrl: String): String{
-        return imageUrl.replace(ACTUAL_WIDTH_HEIGHT_IMAGE, REQUIRED_WIDHT_HEIGHT)
+        return imageUrl.replace(ACTUAL_WIDTH_HEIGHT_IMAGE, REQUIRED_WIDTH_HEIGHT)
     }
 
     fun adaptImageUrlVideos(imageUrl: String): String{
-        return imageUrl.replace(ACTUAL_WIDTH_HEIGHT_VIDEOS, REQUIRED_WIDHT_HEIGHT)
+        return imageUrl.replace(ACTUAL_WIDTH_HEIGHT_VIDEOS, REQUIRED_WIDTH_HEIGHT)
     }
 
     fun adaptTypeToken(token: String): String{

@@ -1,59 +1,106 @@
 package com.globant.videoplayerproject
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.util.Util
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ExoPlayerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ExoPlayerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var playerView: PlayerView? = null
+    private var exoPlayer: SimpleExoPlayer? = null
+    private var playWhenReady = true
+    private var currentWindow = 0
+    private var playbackPosition: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exo_player, container, false)
+    ): View? =
+        inflater.inflate(R.layout.fragment_exo_player, container, false)
+
+    private fun initializePlayer() {
+        val trackSelector = DefaultTrackSelector(requireContext())
+        trackSelector.setParameters(
+            trackSelector.buildUponParameters().setMaxVideoSizeSd()
+        )
+
+        exoPlayer = SimpleExoPlayer.Builder(requireContext())
+            .setTrackSelector(trackSelector)
+            .build()
+
+        playerView = PlayerView(requireActivity())
+
+        playerView!!.player = exoPlayer
+
+        val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
+        /* MediaItem.Builder()
+             .setUri(getString(R.string.media_url_dash))
+             .setMimeType(MimeTypes.APPLICATION_MPD)
+             .build()*/
+        exoPlayer?.setMediaItem(mediaItem)
+        exoPlayer?.playWhenReady = playWhenReady
+        exoPlayer?.seekTo(currentWindow, playbackPosition)
+        exoPlayer?.prepare()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ExoPlayerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ExoPlayerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onStart() {
+        super.onStart()
+        if(exoPlayer != null ){
+            playerView!!.player = exoPlayer
+        }
+        if (Util.SDK_INT >= 24) {
+            initializePlayer()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(exoPlayer != null ){
+            playerView!!.player = exoPlayer
+        }
+        hideSystemUi()
+        if (Util.SDK_INT < 24 || exoPlayer == null) {
+            initializePlayer()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (Util.SDK_INT < 24) {
+            releasePlayer()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (Util.SDK_INT >= 24) {
+            releasePlayer()
+        }
+    }
+
+    private fun releasePlayer() {
+        if (exoPlayer != null) {
+            playWhenReady = exoPlayer?.playWhenReady!!
+            playbackPosition = exoPlayer?.currentPosition!!
+            currentWindow = exoPlayer?.currentWindowIndex!!
+            exoPlayer?.release()
+            exoPlayer = null
+        }
+    }
+
+    private fun hideSystemUi() {
+        playerView!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 }
